@@ -1,0 +1,301 @@
+/* ── Variables ───────────────────────────────────── */
+:root {
+    --bg:           #f5f5f7;
+    --text:         #1d1d1f;
+    --text-sub:     #6e6e73;
+    --dot:          rgba(150, 150, 150, 0.35);
+    --dot-sm:       rgba(150, 150, 150, 0.14);
+    --card-bg:      rgba(255, 255, 255, 0.72);
+    --card-border:  rgba(0, 0, 0, 0.07);
+    --card-shadow:  rgba(0, 0, 0, 0.07);
+    --blur-color:   rgba(140, 140, 140, 0.20);
+    --switch-track: #e0e0e0;
+    --accent:       #444cf7;
+    --transition:   0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] {
+    --bg:           #000000;
+    --text:         #f5f5f7;
+    --text-sub:     #86868b;
+    --dot:          rgba(68, 76, 247, 0.26);
+    --dot-sm:       rgba(68, 76, 247, 0.09);
+    --card-bg:      rgba(255, 255, 255, 0.045);
+    --card-border:  rgba(255, 255, 255, 0.08);
+    --card-shadow:  rgba(68, 76, 247, 0.12);
+    --blur-color:   rgba(68, 76, 247, 0.20);
+    --switch-track: #1c1c1e;
+}
+
+/* ── Reset ───────────────────────────────────────── */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ── Body ────────────────────────────────────────── */
+body {
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    transition: background-color var(--transition), color var(--transition);
+
+    background-image:
+        radial-gradient(var(--dot)    15%, transparent 16%),
+        radial-gradient(var(--dot)    15%, transparent 16%),
+        radial-gradient(var(--dot-sm) 15%, transparent 20%),
+        radial-gradient(var(--dot-sm) 15%, transparent 20%);
+    background-position: 0 0, 5px 5px, 0 1px, 5px 6px;
+    background-size: 10px 10px;
+}
+
+/* ── Switch ──────────────────────────────────────── */
+.switch {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+    z-index: 100;
+    cursor: pointer;
+}
+
+.switch input { display: none; }
+
+.slider {
+    width: 56px;
+    height: 28px;
+    background: var(--switch-track);
+    border-radius: 999px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    transition: background var(--transition);
+    border: 1px solid rgba(0,0,0,0.08);
+}
+
+[data-theme="dark"] .slider { border-color: rgba(255,255,255,0.08); }
+
+.slider::before {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background: #ffffff;
+    border-radius: 50%;
+    top: 2px;
+    left: 3px;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.22);
+    z-index: 2;
+}
+
+.switch input:checked + .slider::before { transform: translateX(27px); }
+
+.switch-icon {
+    position: absolute;
+    font-size: 13px;
+    line-height: 1;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.sun  { left: 6px;  opacity: 1; }
+.moon { right: 5px; opacity: 0.4; }
+
+.switch input:checked + .slider .sun  { opacity: 0.4; }
+.switch input:checked + .slider .moon { opacity: 1; }
+
+/* ── Page layout ─────────────────────────────────── */
+.page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px;
+}
+
+/* ── Hero ────────────────────────────────────────── */
+.hero {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#main-title {
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+#sub-title {
+    font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: lowercase;
+    color: var(--text-sub);
+    transition: color var(--transition);
+}
+
+/* ── Fade animation ──────────────────────────────── */
+.fade-text {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-1 { animation-delay: 0.55s; }
+.delay-2 { animation-delay: 0.85s; }
+.delay-3 { animation-delay: 1.00s; }
+.delay-4 { animation-delay: 1.15s; }
+
+@keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Bento wrapper ───────────────────────────────── */
+.bento-wrapper { position: relative; }
+
+.bento-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -32px;
+    background: var(--blur-color);
+    border-radius: 36px;
+    filter: blur(40px);
+    z-index: 0;
+    pointer-events: none;
+    transition: background var(--transition);
+}
+
+/* ── Bento grid ──────────────────────────────────── */
+.bento-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 12px;
+    width: min(560px, 90vw);
+    height: min(320px, 40vh);
+}
+
+.bento-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    box-shadow: 0 2px 20px var(--card-shadow);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition:
+        background var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition),
+        transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.bento-card:hover {
+    transform: translateY(-4px) scale(1.01);
+}
+
+/* ── Card 1 : Logo ───────────────────────────────── */
+.card-logo {
+    width: 72%;
+    height: 72%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 12px rgba(0,0,0,0.15));
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bento-card:hover .card-logo { transform: scale(1.06); }
+
+/* ── Card 2 : Description ────────────────────────── */
+.card-desc {
+    font-size: clamp(0.68rem, 1.1vw, 0.82rem);
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--text);
+    padding: 18px 20px;
+    text-align: left;
+    opacity: 0.82;
+    transition: color var(--transition);
+}
+
+/* ── Card 3 : GIF placeholder ────────────────────── */
+.gif-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+}
+
+.gif-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+}
+
+.gif-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--text);
+}
+
+/* ── Card 4 : Download button ────────────────────── */
+.dl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 22px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    box-shadow: 0 4px 18px rgba(68, 76, 247, 0.35);
+}
+
+.dl-btn:hover {
+    opacity: 0.88;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(68, 76, 247, 0.45);
+}
+
+.dl-btn:active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.dl-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+/* ── Reduced motion ──────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .fade-text { animation: none; opacity: 1; transform: none; }
+    *, *::before, *::after { transition-duration: 0.01ms !important; }
+}

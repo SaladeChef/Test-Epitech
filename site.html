@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atmosync</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <label class="switch" title="Changer le thème">
+        <input type="checkbox" id="theme-toggle">
+        <span class="slider">
+            <span class="switch-icon sun">☀️</span>
+            <span class="switch-icon moon">🌙</span>
+        </span>
+    </label>
+
+    <div class="page">
+        <div class="hero">
+            <h1 id="main-title" class="fade-text">Atmosync</h1>
+            <p id="sub-title" class="fade-text delay-1">c'est maintenant</p>
+        </div>
+
+        <div class="bento-wrapper">
+            <div class="bento-grid">
+
+                <!-- Card 1 : Logo -->
+                <div class="bento-card fade-text delay-2" id="card-1">
+                    <img src="logo.png" alt="Atmosync logo" class="card-logo">
+                </div>
+
+                <!-- Card 2 : Description -->
+                <div class="bento-card fade-text delay-3" id="card-2">
+                    <p class="card-desc">
+                        Atmosync est un mod Minecraft développé en 3 jours à Epitech par Loucas, Léo, Nathan et Cristiano. Il synchronise l'heure et la météo réelles avec le jeu, ajoute température, UV, fatigue, équipements de protection et un système de survie plus immersif.&nbsp;🌍⛏️⏰
+                    </p>
+                </div>
+
+                <!-- Card 3 : GIF placeholder -->
+                <div class="bento-card fade-text delay-3" id="card-3">
+                    <div class="gif-placeholder">
+                        <span class="gif-icon">▶</span>
+                        <span class="gif-label">Aperçu</span>
+                    </div>
+                </div>
+
+                <!-- Card 4 : Download -->
+                <div class="bento-card fade-text delay-4" id="card-4">
+                    <a href="about:blank" class="dl-btn" target="_blank" rel="noopener">
+                        <svg class="dl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3v13M7 11l5 5 5-5"/>
+                            <path d="M4 20h16"/>
+                        </svg>
+                        Télécharger le mod
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
