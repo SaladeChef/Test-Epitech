@@ -19,48 +19,140 @@
         </span>
     </label>
 
-    <div class="page">
-        <div class="hero">
-            <h1 id="main-title" class="fade-text">Atmosync</h1>
-            <p id="sub-title" class="fade-text delay-1">c'est maintenant</p>
-        </div>
+    <!-- Barres de navigation verticales -->
+    <nav class="scroll-nav">
+        <button class="nav-bar active" data-index="0"></button>
+        <button class="nav-bar" data-index="1"></button>
+    </nav>
 
-        <div class="bento-wrapper">
-            <div class="bento-grid">
+    <!-- Conteneur snap -->
+    <div class="snap-container" id="snap-container">
 
-                <!-- Card 1 : Logo -->
-                <div class="bento-card fade-text delay-2" id="card-1">
-                    <img src="logo.png" alt="Atmosync logo" class="card-logo">
+        <!-- Section 1 : Hero + Bento -->
+        <section class="snap-section" id="section-0">
+            <div class="page">
+                <div class="hero">
+                    <h1 id="main-title" class="fade-text">Atmosync</h1>
+                    <p id="sub-title" class="fade-text delay-1">c'est maintenant</p>
                 </div>
 
-                <!-- Card 2 : Description -->
-                <div class="bento-card fade-text delay-3" id="card-2">
-                    <p class="card-desc">
-                        Atmosync est un mod Minecraft développé en 3 jours à Epitech par Loucas, Léo, Nathan et Cristiano. Il synchronise l'heure et la météo réelles avec le jeu, ajoute température, UV, fatigue, équipements de protection et un système de survie plus immersif.&nbsp;🌍⛏️⏰
-                    </p>
-                </div>
-
-                <!-- Card 3 : GIF placeholder -->
-                <div class="bento-card fade-text delay-3" id="card-3">
-                    <div class="gif-placeholder">
-                        <span class="gif-icon">▶</span>
-                        <span class="gif-label">Aperçu</span>
+                <div class="bento-wrapper">
+                    <div class="bento-grid">
+                        <div class="bento-card fade-text delay-2" id="card-1">
+                            <img src="logo.png" alt="Atmosync logo" class="card-logo">
+                        </div>
+                        <div class="bento-card fade-text delay-3" id="card-2">
+                            <p class="card-desc">
+                                Atmosync est un mod Minecraft développé en 3 jours à Epitech par Loucas, Léo, Nathan et Cristiano. Il synchronise l'heure et la météo réelles avec le jeu, ajoute température, UV, fatigue, équipements de protection et un système de survie plus immersif.&nbsp;🌍⛏️⏰
+                            </p>
+                        </div>
+                        <div class="bento-card fade-text delay-3" id="card-3">
+                            <div class="gif-placeholder">
+                                <span class="gif-icon">▶</span>
+                                <span class="gif-label">Aperçu</span>
+                            </div>
+                        </div>
+                        <div class="bento-card fade-text delay-4" id="card-4">
+                            <a href="about:blank" class="dl-btn" target="_blank" rel="noopener">
+                                <svg class="dl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 3v13M7 11l5 5 5-5"/>
+                                    <path d="M4 20h16"/>
+                                </svg>
+                                Télécharger le mod
+                            </a>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Card 4 : Download -->
-                <div class="bento-card fade-text delay-4" id="card-4">
-                    <a href="about:blank" class="dl-btn" target="_blank" rel="noopener">
-                        <svg class="dl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 3v13M7 11l5 5 5-5"/>
-                            <path d="M4 20h16"/>
-                        </svg>
-                        Télécharger le mod
-                    </a>
+        <!-- Section 2 : Fonctionnalités -->
+        <section class="snap-section" id="section-1">
+            <div class="features-page">
+                <div class="features-header">
+                    
+                    <p class="features-subtitle">Synchronisez votre monde avec la réalité</p>
                 </div>
 
+                <div class="features-grid">
+
+                    <div class="feature-card">
+                        <span class="feat-icon">⏰</span>
+                        <div>
+                            <h3 class="feat-title">Temps réel</h3>
+                            <ul class="feat-list">
+                                <li>L'heure IRL est directement reproduite dans le jeu.</li>
+                                <li>Le soleil et la lune suivent votre fuseau horaire réel.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feat-icon">🌡️</span>
+                        <div>
+                            <h3 class="feat-title">Système de température</h3>
+                            <ul class="feat-list">
+                                <li>Thermomètre pour surveiller la température ambiante.</li>
+                                <li>Le joueur peut souffrir du froid ou de la chaleur.</li>
+                                <li>Équipez-vous d'<strong>armures thermiques</strong> pour résister aux conditions extrêmes.</li>
+                                <li>Utilisez des <strong>chaufferettes</strong> pour survivre aux basses températures.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feat-icon">🌦️</span>
+                        <div>
+                            <h3 class="feat-title">Météo dynamique</h3>
+                            <ul class="feat-list">
+                                <li>Choisissez une ville réelle pour synchroniser la météo du jeu.</li>
+                                <li>Pluie, ciel couvert ou beau temps selon les conditions IRL.</li>
+                                <li><strong>Télévision météo</strong> affichant les prévisions en direct.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feat-icon">☀️</span>
+                        <div>
+                            <h3 class="feat-title">Rayonnement UV</h3>
+                            <ul class="feat-list">
+                                <li>Exposition au soleil prise en compte.</li>
+                                <li>Portez une <strong>casquette</strong> pour vous protéger des UV.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feat-icon">😴</span>
+                        <div>
+                            <h3 class="feat-title">Gestion du sommeil</h3>
+                            <ul class="feat-list">
+                                <li>Dormir devient essentiel.</li>
+                                <li>Après 2 jours sans sommeil, le joueur subit de la <strong>fatigue</strong> et des malus.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feat-icon">🧟</span>
+                        <div>
+                            <h3 class="feat-title">Comportement des monstres</h3>
+                            <ul class="feat-list">
+                                <li>Les créatures hostiles apparaissent uniquement lorsque les conditions le permettent.</li>
+                                <li>Minimum de 2 cycles de sommeil requis pour conserver une bonne condition physique.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <p class="features-quote">
+                    Atmosync transforme Minecraft en une expérience immersive où votre monde virtuel suit le rythme du monde réel.
+                </p>
             </div>
-        </div>
+        </section>
+
     </div>
 
     <script src="script.js"></script>

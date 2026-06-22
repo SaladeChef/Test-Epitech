@@ -11,6 +11,8 @@
     --blur-color:   rgba(140, 140, 140, 0.20);
     --switch-track: #e0e0e0;
     --accent:       #444cf7;
+    --nav-bar:      rgba(0, 0, 0, 0.18);
+    --nav-bar-act:  #444cf7;
     --transition:   0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -25,6 +27,7 @@
     --card-shadow:  rgba(68, 76, 247, 0.12);
     --blur-color:   rgba(68, 76, 247, 0.20);
     --switch-track: #1c1c1e;
+    --nav-bar:      rgba(255, 255, 255, 0.18);
 }
 
 /* ── Reset ───────────────────────────────────────── */
@@ -35,14 +38,20 @@
 }
 
 /* ── Body ────────────────────────────────────────── */
-body {
-    height: 100vh;
+html, body {
+    height: 100%;
     overflow: hidden;
+}
+
+body {
     background-color: var(--bg);
     color: var(--text);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     transition: background-color var(--transition), color var(--transition);
+}
 
+/* ── Dot pattern (appliqué sur chaque section) ───── */
+.snap-section {
     background-image:
         radial-gradient(var(--dot)    15%, transparent 16%),
         radial-gradient(var(--dot)    15%, transparent 16%),
@@ -50,6 +59,8 @@ body {
         radial-gradient(var(--dot-sm) 15%, transparent 20%);
     background-position: 0 0, 5px 5px, 0 1px, 5px 6px;
     background-size: 10px 10px;
+    background-color: var(--bg);
+    transition: background-color var(--transition);
 }
 
 /* ── Switch ──────────────────────────────────────── */
@@ -57,7 +68,7 @@ body {
     position: fixed;
     top: 20px;
     right: 24px;
-    z-index: 100;
+    z-index: 200;
     cursor: pointer;
 }
 
@@ -107,18 +118,83 @@ body {
 .switch input:checked + .slider .sun  { opacity: 0.4; }
 .switch input:checked + .slider .moon { opacity: 1; }
 
-/* ── Page layout ─────────────────────────────────── */
-.page {
+/* ── Scroll nav (barres verticales droite) ───────── */
+.scroll-nav {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-bar {
+    width: 3px;
+    height: 28px;
+    border-radius: 999px;
+    border: none;
+    background: var(--nav-bar);
+    cursor: pointer;
+    padding: 0;
+    transition:
+        background 0.35s ease,
+        height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.35s ease;
+    opacity: 0.5;
+}
+
+.nav-bar.active {
+    background: var(--nav-bar-act);
+    height: 44px;
+    opacity: 1;
+}
+
+.nav-bar:hover:not(.active) {
+    opacity: 0.9;
+    background: var(--nav-bar-act);
+}
+
+/* ── Snap container ──────────────────────────────── */
+.snap-container {
     height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    /* Masquer la scrollbar */
+    scrollbar-width: none;
+}
+
+.snap-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* ── Snap sections ───────────────────────────────── */
+.snap-section {
+    height: 100vh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ══════════════════════════════════════════════════ */
+/*  SECTION 1 — Hero + Bento                         */
+/* ══════════════════════════════════════════════════ */
+
+.page {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 40px;
     padding: 20px;
+    width: 100%;
 }
 
-/* ── Hero ────────────────────────────────────────── */
 .hero {
     text-align: center;
     display: flex;
@@ -174,16 +250,13 @@ body {
     transition: background var(--transition);
 }
 
-/* ── Bento grid ──────────────────────────────────── */
 .bento-grid {
     position: relative;
     z-index: 1;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
     gap: 12px;
-    width: min(560px, 90vw);
-    height: min(320px, 40vh);
+    width: min(580px, 90vw);
 }
 
 .bento-card {
@@ -204,14 +277,15 @@ body {
     overflow: hidden;
 }
 
-.bento-card:hover {
-    transform: translateY(-4px) scale(1.01);
-}
+.bento-card:hover { transform: translateY(-4px) scale(1.01); }
 
-/* ── Card 1 : Logo ───────────────────────────────── */
+#card-1, #card-2 { min-height: 150px; }
+#card-3, #card-4 { height: 120px; }
+#card-2 { align-items: flex-start; }
+
 .card-logo {
-    width: 72%;
-    height: 72%;
+    width: 80%;
+    height: 80%;
     object-fit: contain;
     filter: drop-shadow(0 2px 12px rgba(0,0,0,0.15));
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -219,11 +293,10 @@ body {
 
 .bento-card:hover .card-logo { transform: scale(1.06); }
 
-/* ── Card 2 : Description ────────────────────────── */
 .card-desc {
-    font-size: clamp(0.68rem, 1.1vw, 0.82rem);
+    font-size: clamp(0.72rem, 1.15vw, 0.84rem);
     font-weight: 400;
-    line-height: 1.6;
+    line-height: 1.65;
     color: var(--text);
     padding: 18px 20px;
     text-align: left;
@@ -231,32 +304,26 @@ body {
     transition: color var(--transition);
 }
 
-/* ── Card 3 : GIF placeholder ────────────────────── */
 .gif-placeholder {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
     width: 100%;
     height: 100%;
     opacity: 0.3;
 }
 
-.gif-icon {
-    font-size: 1.6rem;
-    line-height: 1;
-}
-
+.gif-icon  { font-size: 1.4rem; line-height: 1; }
 .gif-label {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 500;
     letter-spacing: 0.10em;
     text-transform: uppercase;
     color: var(--text);
 }
 
-/* ── Card 4 : Download button ────────────────────── */
 .dl-btn {
     display: inline-flex;
     align-items: center;
@@ -270,10 +337,7 @@ body {
     font-weight: 500;
     letter-spacing: 0.02em;
     text-decoration: none;
-    transition:
-        opacity 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+    transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 4px 18px rgba(68, 76, 247, 0.35);
 }
 
@@ -283,15 +347,122 @@ body {
     box-shadow: 0 8px 24px rgba(68, 76, 247, 0.45);
 }
 
-.dl-btn:active {
-    transform: translateY(0);
-    opacity: 1;
+.dl-btn:active { transform: translateY(0); opacity: 1; }
+
+.dl-icon { width: 16px; height: 16px; flex-shrink: 0; }
+
+/* ══════════════════════════════════════════════════ */
+/*  SECTION 2 — Fonctionnalités                      */
+/* ══════════════════════════════════════════════════ */
+
+.features-page {
+    width: 100%;
+    max-width: 780px;
+    padding: 48px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    height: 100vh;
+    justify-content: center;
 }
 
-.dl-icon {
-    width: 16px;
-    height: 16px;
+.features-header {
+    text-align: center;
+}
+
+.features-title {
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+}
+
+.features-subtitle {
+    margin-top: 6px;
+    font-size: clamp(0.8rem, 1.5vw, 0.95rem);
+    color: var(--text-sub);
+    letter-spacing: 0.06em;
+    transition: color var(--transition);
+}
+
+/* ── Feature cards grid ──────────────────────────── */
+.features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.feature-card {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 16px 18px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 2px 16px var(--card-shadow);
+    transition:
+        background var(--transition),
+        border-color var(--transition),
+        transform 0.22s ease;
+}
+
+.feature-card:hover { transform: translateY(-3px); }
+
+.feat-icon {
+    font-size: 1.3rem;
+    line-height: 1;
     flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.feat-title {
+    font-size: 0.82rem;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: var(--text);
+    transition: color var(--transition);
+}
+
+.feat-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.feat-list li {
+    font-size: 0.72rem;
+    line-height: 1.5;
+    color: var(--text-sub);
+    padding-left: 10px;
+    position: relative;
+    transition: color var(--transition);
+}
+
+.feat-list li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+}
+
+.feat-list strong {
+    color: var(--text);
+    font-weight: 500;
+}
+
+/* ── Quote ───────────────────────────────────────── */
+.features-quote {
+    text-align: center;
+    font-size: clamp(0.75rem, 1.2vw, 0.88rem);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text-sub);
+    opacity: 0.8;
+    padding: 0 16px;
+    transition: color var(--transition);
 }
 
 /* ── Reduced motion ──────────────────────────────── */
