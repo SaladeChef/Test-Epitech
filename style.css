@@ -214,7 +214,7 @@ body {
     font-size: clamp(0.85rem, 1.8vw, 1.1rem);
     font-weight: 400;
     letter-spacing: 0.12em;
-    text-transform: lowercase;
+    /*text-transform: lowercase;*/
     color: var(--text-sub);
     transition: color var(--transition);
 }
